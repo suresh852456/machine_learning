@@ -3,9 +3,10 @@ Module used to define the utilities required
 '''
 from __future__ import division
 import math
+from itertools import izip
 import pandas
 import numpy
-from scipy.spatial.distance import minkowski
+from scipy.spatial.distance import minkowski,cosine
 
 def prepare_data(vector_1,vector_2):
     '''
@@ -57,6 +58,19 @@ def minkowski_distance(vector_1,vector_2,n_root):
     else:
        raise ArithmeticError("nth root can not be Zero")
 
+def cosine_similarity(vector_1,vector_2):
+    '''
+    calculates the cosine similarity
+    '''
+    vector_1,vector_2=prepare_data(vector_1,vector_2)
+    numerator=sum(v1*v2 for v1,v2 in zip(vector_1,vector_2))
+    denominator=reduce(lambda x,y:math.sqrt(x)*math.sqrt(y),map(lambda x: sum([i if x==0 else j for i,j in [ (v1**2,v2**2) for v1,v2 in zip(vector_1,vector_2)]]),(0,1)))
+    dot_product = numpy.dot(vector_1, vector_2)
+    norm_a = numpy.linalg.norm(vector_1)
+    norm_b = numpy.linalg.norm(vector_2)
+    return 1-(numerator/denominator)
+    
+
 def test_case():
     vec1=[1,2,3,5,6]
     vec2=[3,12,3,4,5]
@@ -89,6 +103,8 @@ def test_case():
     print minkowski_distance(vec1,vec2,4)
     print minkowski(vec1,vec2,3)
     print minkowski(vec1,vec2,4)
-    
+    print cosine_similarity(vec1,vec2)
+    print cosine(vec1,vec2)
+
 
 test_case()   
