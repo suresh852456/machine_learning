@@ -65,9 +65,6 @@ def cosine_similarity(vector_1,vector_2,distance=False):
     vector_1,vector_2=prepare_data(vector_1,vector_2)
     numerator=sum(v1*v2 for v1,v2 in zip(vector_1,vector_2))
     denominator=reduce(lambda x,y:math.sqrt(x)*math.sqrt(y),map(lambda x: sum([i if x==0 else j for i,j in [ (v1**2,v2**2) for v1,v2 in zip(vector_1,vector_2)]]),(0,1)))
-    dot_product = numpy.dot(vector_1, vector_2)
-    norm_a = numpy.linalg.norm(vector_1)
-    norm_b = numpy.linalg.norm(vector_2)
     if distance:
         return 1-(numerator/denominator)
     else:
