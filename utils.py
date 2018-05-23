@@ -58,7 +58,7 @@ def minkowski_distance(vector_1,vector_2,n_root):
     else:
        raise ArithmeticError("nth root can not be Zero")
 
-def cosine_similarity(vector_1,vector_2):
+def cosine_similarity(vector_1,vector_2,distance=False):
     '''
     calculates the cosine similarity
     '''
@@ -68,7 +68,10 @@ def cosine_similarity(vector_1,vector_2):
     dot_product = numpy.dot(vector_1, vector_2)
     norm_a = numpy.linalg.norm(vector_1)
     norm_b = numpy.linalg.norm(vector_2)
-    return 1-(numerator/denominator)
+    if distance:
+        return 1-(numerator/denominator)
+    else:
+        return numerator/denominator
     
 
 def test_case():
@@ -103,7 +106,7 @@ def test_case():
     print minkowski_distance(vec1,vec2,4)
     print minkowski(vec1,vec2,3)
     print minkowski(vec1,vec2,4)
-    print cosine_similarity(vec1,vec2)
+    print cosine_similarity(vec1,vec2,True)
     print cosine(vec1,vec2)
 
 
